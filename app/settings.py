@@ -240,10 +240,9 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = vars.vars["EMAIL"]["host"]
     EMAIL_PORT = vars.vars["EMAIL"]["port"]
-    # We use localhost as mail relay
-    #EMAIL_HOST_USER = vars.vars["EMAIL"]["login"]
-    #EMAIL_HOST_PASSWORD = vars.vars["EMAIL"]["password"]
-    #EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = vars.vars["EMAIL"]["login"]
+    EMAIL_HOST_PASSWORD = vars.vars["EMAIL"]["password"]
+    EMAIL_USE_TLS = True
     #EMAIL_USE_SSL = False
 
 # Database
