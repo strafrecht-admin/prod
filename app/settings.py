@@ -242,8 +242,9 @@ else:
     EMAIL_PORT = vars.vars["EMAIL"]["port"]
     EMAIL_HOST_USER = vars.vars["EMAIL"]["login"]
     EMAIL_HOST_PASSWORD = vars.vars["EMAIL"]["password"]
-    EMAIL_USE_TLS = True
-    #EMAIL_USE_SSL = False
+    #EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = True
+    EMAIL_SSL_VERSION = 'TLSv1_2'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
