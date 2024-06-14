@@ -1,0 +1,533 @@
+.jurcoach-poll {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 22px;
+  background: #fff;
+  box-shadow: 3px 3px 0 #000;
+  padding: 30px;
+  min-width: 220px;
+  max-width: 300px;
+
+  &::before {
+    color: #fff;
+    font-family: $serif-font;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    content: 'Umfrage';
+    position: relative;
+    top: -40px;
+    background: #000;
+    width: 80px;
+  }
+
+  h3 {
+    margin-top: -25px;
+  }
+
+  form {
+    text-align: center;
+
+    > label {
+      display: none;
+    }
+
+    ul {
+      text-align: left;
+      list-style: none;
+      padding: 0;
+
+      li label {
+        display: inline-flex;
+        align-items: center;
+        padding-left: 0.8em;
+        cursor: pointer;
+
+        input[type='radio'] {
+          appearance: none;
+          background: #fff;
+          border-radius: 100%;
+          border: 2px solid #000;
+          width: 12px;
+          height: 12px;
+          position: relative;
+          left: -10px;
+          cursor: pointer;
+
+          &:checked {
+            border-color: #000;
+            box-shadow: inset 0 0 0 2px #fff;
+            background-color: #000;
+          }
+        }
+      }
+    }
+
+    [type='submit']:not(:disabled) {
+      cursor: pointer;
+      background: $yellow;
+      border: 0;
+      padding: 7px 10px;
+      width: 100%;
+      font-weight: bold;
+
+      &:hover {
+        background: #ffd800;
+      }
+    }
+  }
+
+  .answers {
+    margin-top: 10px;
+    text-align: left;
+
+    .answer:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    .answer .bar {
+      width: 100%;
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .answer .bar > div {
+      background: $yellow;
+      max-height: 22px;
+      margin-right: 5px;
+    }
+
+    .answer .bar > span {
+      float: right;
+      font-weight: bold;
+      min-width: 70px;
+      white-space: nowrap;
+    }
+  }
+}
+
+/* fix wiki newline formating */
+.wiki-content > br {
+  display: none;
+}
+
+.wiki-article > br {
+  display: none;
+}
+
+/* wiki styles */
+#wiki-container {
+  .wiki-article-title {
+    background-image: linear-gradient(90deg, #ffe100, #ffe100);
+    background-position: bottom;
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    display: inline !important;
+  }
+
+  .wiki-article-title::after {
+    background: transparent !important;
+    content: none !important;
+  }
+
+  .wiki-article > h2 {
+    font-size: 1.3rem !important;
+    margin-top: 15px;
+  }
+
+  .wiki-article h2::after {
+    background: transparent !important;
+    content: none;
+  }
+
+  .wiki-article .article-edit-title-link {
+    margin-left: 10px;
+  }
+
+  .wiki-submenu {
+    label {
+      margin: 0.6em;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #000 !important;
+      margin: 0;
+      margin-bottom: 20px;
+      display: inline;
+      position: relative;
+      cursor: default;
+      border-bottom: 4px solid #ffe200;
+      background: none !important;
+    }
+
+    .wiki-children {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      place-items: start;
+      gap: 0.5rem;
+      margin-left: 0;
+      clear: both;
+      color: #3d3d3d;
+
+      @media screen and (min-width: 720px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      a {
+        flex-grow: 1;
+        color: #333 !important;
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      a > span.badge {
+        width: 430px;
+        background: #fff;
+        padding: 0.4rem 1rem;
+        border: 3px solid #e8e7e0;
+        color: #3d3d3d;
+        font-size: 14px;
+        white-space: normal;
+        line-height: 1.1em;
+
+        &:hover {
+          background: #ffe200;
+          border: 3px solid #ffe200;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+#jurcoach-page {
+  width: 100%;
+
+  h3 {
+    display: inline-block;
+    color: #333 !important;
+    font-family: $serif-font;
+    font-size: 1.2rem !important;
+    font-weight: 800 !important;
+    background: none !important;
+  }
+}
+
+#jurcoach-page ::selection,
+#jurcoach-page ::-moz-selection {
+  background: $yellow;
+}
+
+#jurcoach-page .container a {
+  /* color: #333 !important; */
+  font-weight: 700;
+}
+
+#jurcoach-page a:hover {
+  text-decoration: none !important;
+}
+
+#jurcoach-page h1 {
+  font-size: 24px;
+  font-weight: 800;
+  font-family: $serif-font;
+}
+
+#jurcoach-page h2 {
+  display: inline !important;
+  font-size: 28px;
+  font-weight: 800 !important;
+  font-family: $serif-font;
+}
+
+div.h2-centered {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+#jurcoach-page h2::before,
+#jurcoach-page h2::after,
+#jurcoach-page h3::before,
+#jurcoach-page h3::after {
+  content: none !important;
+}
+
+.underlined {
+  $border-bottom: 4px solid #fff;
+
+  border-bottom: $border-bottom;
+
+  &.hover {
+    border-bottom: 0;
+
+    &:hover {
+      border-bottom: $border-bottom;
+
+      &.yellow {
+        border-color: $yellow;
+      }
+
+      &.green {
+        border-color: $green;
+      }
+    }
+  }
+
+  &.yellow {
+    border-color: $yellow;
+  }
+
+  &.green {
+    border-color: $green;
+  }
+}
+
+#jurcoach-page section {
+  display: flex;
+  flex-direction: column;
+}
+
+#jurcoach-page .container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px !important;
+}
+
+#jurcoach-page .carousel {
+  padding-top: 0px;
+  padding-left: 60px;
+  width: 1200px;
+}
+
+#jurcoach-page .carousel-inner {
+  display: flex;
+  overflow: initial;
+}
+
+#jurcoach-page .carousel-item {
+  margin-right: 50px !important;
+  max-width: 240px;
+  text-align: left;
+
+  p {
+    font-size: 13px;
+    max-width: 280px;
+  }
+}
+
+#jurcoach-page .carousel-navigation {
+  display: inline-block;
+  font-size: 1.125rem;
+}
+
+#jurcoach-page .carousel-navigation .slider-pagination {
+  margin: 0 10px;
+  font-family: $serif-font;
+}
+
+#jurcoach-page .carousel-navigation .carousel-prev,
+#jurcoach-page .carousel-navigation .carousel-next {
+  cursor: pointer;
+  border-bottom: 4px solid $yellow;
+}
+
+#jurcoach-page .bottom-item {
+  text-align: left;
+  margin-right: 20px;
+  width: 25%;
+}
+
+#jurcoach-page .bottom-item:nth-of-type(3) {
+  margin-right: 60px;
+}
+
+#jurcoach-page .bottom-item p {
+  font-size: 14px;
+}
+
+.illustration-container {
+  position: absolute;
+  height: 0;
+  margin: 0;
+
+  .jurcoach-logo {
+    position: relative;
+    top: -125px;
+    right: -660px;
+    width: 270px;
+    height: 300px;
+    background-image: $icon-jurcoach-logo;
+    background-repeat: no-repeat;
+  }
+
+  .poll-illustration {
+    position: relative;
+    width: 150px;
+    height: 220px;
+    top: -170px;
+    left: -110px;
+    background-image: $icon-jurcoach-poll;
+    background-repeat: no-repeat;
+  }
+}
+
+#jurcoach-page .carousel-item .person {
+  width: 200px;
+  height: 266px;
+  margin-bottom: 40px;
+  background-repeat: no-repeat;
+}
+
+#jurcoach-page .person.contribute {
+  width: 678px;
+  height: 368px;
+  margin-right: 50px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.contribution-area {
+  background: #eeede8;
+  position: relative;
+  max-width: 500px;
+  width: calc(100vw - 100px);
+  min-height: 120px;
+  margin: 50px auto 30px auto;
+  padding: 20px 100px 20px 20px;
+  border-top-right-radius: 40px;
+
+  a {
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: none !important;
+    }
+  }
+
+  .contribution-image {
+    position: absolute;
+    top: -30px;
+    right: -40px;
+    width: 143px;
+    height: 187px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+#jurcoach-page #article-container {
+  margin-bottom: 20px;
+}
+
+#jurcoach-page .line {
+  height: 20px;
+  border-bottom: 3px solid;
+  border-color: $line-gray;
+  z-index: -999;
+  position: relative;
+  top: 70px;
+  margin-top: -20px;
+  max-width: 1000px !important;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  left: 100px;
+}
+
+#jurcoach-page .triangle {
+  background: #fff;
+  border: 3px solid;
+  border-color: $line-gray;
+  border-width: 3px 3px 0 0;
+  transform: rotate(-45deg);
+  position: relative;
+  left: 45%;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 768px) {
+  /* show 3 items */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item {
+    display: block;
+  }
+
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  /* farthest right hidden item must be abso position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    display: block;
+    visibility: visible;
+  }
+
+  .carousel-inner
+    .active.carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item,
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item
+    + .carousel-item {
+    transition: none;
+  }
+}
+
+#jurcoach-page h3.highlighted {
+  line-height: 32px !important;
+  border-bottom: 4px solid #ffe200;
+  display: inline !important;
+}

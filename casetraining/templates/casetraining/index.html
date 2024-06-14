@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags website_tags %}
+
+{% block title %}
+Jurcoach Falltraining – Strafrecht Online
+{% endblock %}
+
+{% block content %}
+<h2>Falltraining</h2>
+<p>
+  Im Falltraining tastest Du Dich Schritt für Schritt an die ideale Klausurlösung heran. Die sieben Steps des Trainings umfassen alle wichtigen Aspekte der Erarbeitung einer Lösung. 
+</p>
+<p>
+  Das Falltraining unterstützt Dich dabei, ein strukturiertes Vorgehen zu erlernen, was für eine gute Klausur essentiell ist. Dabei gilt: Je häufiger diese Schritte durchlaufen und verinnerlicht werden, desto leichter wird Dir die tatsächliche Klausursituation fallen.
+</p>
+<p>
+  Und das Beste daran: Du hast hier die Möglichkeit, individuelles Feedback einer Lehrperson auf von Dir ausformulierte Ausschnitte des Gutachtens zu erhalten.
+</p>
+<p>
+  Hinweis: Echte Altklausuren findest Du in der <a href="/jurcoach/klausurendatenbank/">Klausurdatenbank</a>.
+</p>
+</p>
+{% if user.is_staff %}
+<p>
+  Legende:
+  <span class="text-info">Freigegeben</span>
+  /
+  <span class="text-success">Eingereicht</span>
+  /
+  <span class="text-danger">nicht Öffentlich</span>
+</p>
+{% endif %}
+<div class="row mb-4">
+  <div class="col-sm-4">
+    <h3>Kurzfälle</h3>
+    {% for case in shortcase %}
+    {% include "casetraining/case-listing.html" with case=case %}
+    {% endfor %}
+  </div>
+  <div class="col-sm-4">
+    <h3>Anfänger*innen</h3>
+    {% for case in beginner %}
+    {% include "casetraining/case-listing.html" with case=case %}
+    {% endfor %}
+  </div>
+  <div class="col-sm-4">
+    <h3>Fortgeschrittene</h3>
+    {% for case in advanced %}
+    {% include "casetraining/case-listing.html" with case=case %}
+    {% endfor %}
+  </div>
+</div>
+<p>
+  <strong>Kurzfälle:</strong> Diese Fälle eignen sich insbesondere für das erste Semester. Auch wenn Du gerade noch inmitten Deiner Strafrecht AT Vorlesung steckst, so kannst Du die Kurzfälle doch schon nutzen, um Dich weiter mit den Grundstrukturen des Verbrechensaufbaus vertraut zu machen.
+</p>
+<p>
+  <strong>Anfänger*innen:</strong> Diese Fälle eignen sich insbesondere zur Vorbereitung auf Deine erste Strafrechtsklausur. In erster Linie werden hier Kenntnisse im Strafrecht AT abgeprüft.
+</p>
+<p>
+  <strong>Fortgeschrittene:</strong> Diese Fälle eignen sich gleichermaßen zur Vorbereitung auf die Fortgeschrittenenklausur wie auch zur Vorbereitung auf das Staatsexamen. Kenntnisse sowohl im Strafrecht AT als auch im Strafrecht BT werden hier abgeprüft. Die erhöhte Komplexität eines Examensfalls im Vergleich zum Fortgeschrittenenfall besteht darin, dass er umfangreicher ist, mehrere Personen involviert sind und atypischere Delikte abgeprüft werden. Um einen solchen Fall meistern zu können, kommt es in erster Linie darauf an, die Zeit richtig zu managen und den Überblick fürs „große Ganze“ zu behalten. Eben diese Fähigkeiten kannst Du hier bestens einüben.
+</p>
+<p>
+  <strong>Hinweis zu Literaturangaben:</strong> Die Lösungsskizzen des Falltrainings dienen didaktischen Zwecken. Wir haben zu deren Erstellung die Dir bekannten Standardlehrbücher verwendet. Spielen wichtige Entscheidungen oder Spezialliteratur eine Rolle, so findest Du diese in einem Hinweiskasten am Ende des jeweiligen Falls. Auch das <a href="/problemfelder/">Problemfeld-Wiki</a> kann für die Erschließung von Rechtsprechung und Literatur helfen.
+</p>
+
+<div class="contribution-area">
+  <div class="contribution-image"></div>
+  <div>
+    <a href="{% url 'casetraining:new' %}">
+      <span class="underlined green hover">Neuen Fall erstellen</span> <i class="bi bi-arrow-right"></i>
+    </a>
+  </div>
+</div>
+
+{% endblock %}

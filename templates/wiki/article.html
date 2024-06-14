@@ -1,0 +1,92 @@
+{% extends "wiki/base.html" %}
+{% load wiki_tags i18n sekizai_tags sorted_wiki %}
+
+{% block wiki_pagetitle %}
+{{ article.current_revision.title }}
+{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+{% endblock %}
+
+{% block title %}
+Jurcoach {{ article.current_revision.title }} – Strafrecht Online
+{% endblock %}
+
+{% block wiki_contents %}
+<div id="wiki-container">
+  {% include "wiki/includes/breadcrumbs.html" %}
+
+  {% if urlpath.parent %}
+  {% if selected_tab == "view" %}
+  {% url 'wiki:get' path=urlpath.parent.path as parentarticle %}
+  <p>
+    <a href="{{ parentarticle }}" style="display: flex; flex-direction: row; align-items: center;">
+      <i class="bi bi-arrow-left-circle-fill" style="font-size: 1.3rem; margin-right: 5px;"></i>
+      <span style="font-size: 1rem; font-weight:600;">Zurück</span>
+    </a>
+  </p>
+  {% else %}
+  {% url 'wiki:get' path=urlpath.path as thisarticle %}
+  <p>
+    <a href="{{ thisarticle }}" style="display: flex; flex-direction: row; align-items: center;">
+      <i class="bi bi-arrow-left-circle-fill" style="font-size: 1.3rem; margin-right: 5px;"></i>
+      <span style="font-size: 1rem; font-weight:600;">Zurück zum Problemfeld-Wiki</span>
+    </a>
+  </p>
+  {% endif %}
+  {% endif %}
+
+  <div id="article-container">
+    <div class="h2-centered">
+      <h2 class="wiki-article-title">{{ article.current_revision.title }}</h2>
+    </div>
+
+    <section class="wiki-content">
+      {% block wiki_contents_tab %}
+      {% endblock %}
+    </section>
+
+    {% if selected_tab == "view" and article.current_revision.content %}
+    <section>
+      <p style="margin-bottom: 10px; text-align: center;" class="small">
+	<em>Die Seite wurde zuletzt am {{ article.current_revision.modified|date:"j.n.Y" }} um {{ article.current_revision.modified|date:"G.i" }} Uhr bearbeitet.</em>
+      </p>
+    </section>
+    {% endif %}
+  </div>
+
+  {% if selected_tab == "view" %}
+  {% if children_slice|length > 0 %}
+  <section class="text-center wiki-submenu">
+    <label><h3>Problemfelder</h3></label>
+    <div class="wiki-children">
+      {% for urlpath in children_slice|sorted_wiki:urlpath %}
+      {% if urlpath.path != "loesungsskizzen/" %}
+      <a href="{% url 'wiki:get' path=urlpath.path %}">
+	<span class="badge badge-pill">{{ urlpath.article.current_revision.title }}</span>
+      </a>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+  <section>
+    {% include "wiki/includes/menu.html" %}
+    <div class="clearfix"></div>
+    {% include "wiki/includes/search.html" %}
+  </section>
+
+  {% include "includes/comments.html" with object=urlpath.article %}
+
+  {% if urlpath.article.flashcard_decks.count > 0 %}
+    {% include "wiki/includes/flashcards.html" %}
+  {% endif %}
+  {% endif %}
+
+{% endblock %}

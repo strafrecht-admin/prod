@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+{% csrf_token %}
+<div class="flex flex-grow" style="width: 97%;">
+  <div class="content">
+    {% include_block page.content %}
+  </div>
+</div>
+{% if page.allow_comments %}
+{% include "includes/comments.html" with object=page %}
+{% endif %}
+{% endblock content %}
+
+{% block sidebar %}
+<div class="col-12 sidebar no-gutters overflow-hidden flex-md-col position-relative">
+  {% include_block page.sidebar %}
+</div>
+{% endblock %}

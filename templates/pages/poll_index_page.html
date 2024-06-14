@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags website_tags %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block body_class %}template-websitepage{% endblock %}
+
+{% block content %}
+	<div class="news-index-page">
+		<div class="col-md-12">
+			<h2>Poll Reviews</h2>
+
+			{% for review in reviews %}
+			<div>
+				<a href="{% pageurl review %}">{{ review.title }}</a>
+				<p class="meta badge badge-dark">{{ review.date|date:"d.m.Y" }}</p>
+			</div>
+			{% endfor %}
+
+		</div>
+	</div>
+{% endblock %}

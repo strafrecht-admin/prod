@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailroutablepage_tags %}
+{% load website_tags %}
+{% load comments %}
+{% load comments_xtd %}
+
+{% block content %}
+<div class="container">
+  <p class="meta badge" style="background:#D3D3D3;color:#3d3d3d;">{{ page.date|date:"d.m.Y" }}</p>
+  <br/>
+  <h2 class="font-weight-bold">{{ page.title }}</h2>
+
+  {% if page.author %}
+  <p>Von <a href="/institut/personen/{{ page.author.id }}">{{ page.author_name }}</a></p>
+  {% endif %}
+
+  <div class="richtext mb-4">{{ page.body|richtext }}</div>
+
+  {% if page.allow_comments %}
+  {% include "includes/comments.html" with object=page %}
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="col-md-4 sidebar">
+
+  {{ page.sidebar }}
+
+  {% for sidebar_placement in page.sidebar_placements.all %}
+  <div class="row sidebar-item">
+    {% if sidebar_placement.sidebar.image %}
+    <div class="col-md-4 left">
+      {% image sidebar_placement.sidebar.image fill-100x100 %}
+    </div>
+    <div class="col-md-8 right">
+      <p>{{ sidebar_placement.sidebar.text|richtext }}</p>
+    </div>
+    {% else %}
+    <div class="col-md-12 right">
+      <p>{{ sidebar_placement.sidebar.text|richtext }}</p>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

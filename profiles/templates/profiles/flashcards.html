@@ -1,0 +1,15 @@
+{% extends "profiles/base.html" %}
+
+{% load static %}
+
+{% block contents %}
+<deck></deck>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  new LVue({
+    render: (h) => h(DeckApp),
+  }).$mount("deck");
+</script>
+{% endblock %}

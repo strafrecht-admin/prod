@@ -1,0 +1,23 @@
+{% extends "profiles/base.html" %}
+
+{% load static %}
+
+{% block contents %}
+<h3>Hallo {{ user.first_name }}</h3>
+<p class="mt-4">
+  Willkomen in Deinem Jurcoach Profil!
+</p>
+
+
+{% if profile.rewards == 0 %}
+<p>
+  Du hast noch keine Jurcoach-Punkte.
+</p>
+{% else %}
+<p>
+  Du hast <strong>{{ profile.rewards }}</strong>
+  Jurcoach-{% if profile.rewards == 1 %}Punkt{% else %}Punkte{% endif %}!
+</p>
+{% endif %}
+
+{% endblock %}

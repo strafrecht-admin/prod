@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block submenu %}
+<div id="profile-nav">
+  <a href="{% url 'profile:index' %}">Dein Profil</a>
+  <a href="{% url 'profile:tandem_exams' %}">Tandemklausuren</a>
+  <a href="{% url 'profile:quizzes' %}">MCT Ergebnisse</a>
+  <a href="{% url 'profile:flashcards' %}">Flashcards</a>
+  <a href="{% url 'profile:submissions' %}">Einreichungen</a>
+  <a href="{% url 'profile:bookmarks' %}">Lesezeichen</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-12 mt-4">
+  {% block contents %}{% endblock %}
+</div>
+{% endblock %}

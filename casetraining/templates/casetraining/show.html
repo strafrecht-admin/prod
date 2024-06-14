@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags website_tags %}
+
+{% block title %}
+Jurcoach Falltraining: {{ case.name }} – Strafrecht Online
+{% endblock %}
+
+{% block content %}
+<case></case>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  new LVue({
+    render: (h) => h(CaseApp, {
+      props: {
+	newCase:      false,
+        caseId:       {{ case.id }},
+	submissionId: {% if case.submission %} {{ case.submission.id }} {% else %} null {% endif %},
+        userId:       {% if user.id %} {{ user.id }} {% else %} null {% endif %},
+        userEmail:    {% if user.id %} '{{ user.email }}' {% else %} null {% endif %},
+        isAdmin:      {% if user.is_staff %} true {% else %} false {% endif %}
+      }
+    })
+  }).$mount("case");
+</script>
+{% endblock %}

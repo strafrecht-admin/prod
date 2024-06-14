@@ -1,0 +1,31 @@
+.block-sidebar_search {
+  .inner {
+    margin: 15px 0 15px 0;
+  }
+
+  &::after {
+    content: "\f002";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 18px;
+    top: 20px;
+    font-size: 20px;
+    color: #888;
+  }
+
+  input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #666;
+    padding: 5px 0;
+    background: #fff;
+
+    &:focus-visible,
+    &:focus {
+      border-bottom: 2px solid #1976d2;
+      outline: none;
+      padding-bottom: 4px;
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{% load pipeline %}
+{% load website_tags %}
+{% load pwa %}
+{% load static wagtailuserbar menu_tags %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% load sekizai_tags %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Institut für Kriminologie und Wirtschaftsstrafrecht Freiburg">
+    <meta name="description" content="Website des Instituts für Kriminologie und Wirtschaftsstrafrecht Freiburg">
+    <script>var csrf_token = "{{ csrf_token }}";</script>
+    {% progressive_web_app_meta %}
+    <title>
+      {% block title %}
+      {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+      {% endblock %}
+      {% block title_suffix %}
+      {% with self.get_site.site_name as site_name %}
+      {% if site_name %}- {{ site_name }}{% endif %}
+      {% endwith %}
+      {% endblock %}
+    </title>
+
+    {# Global stylesheets #}
+    <link href="{% static 'app.css' %}" rel="stylesheet">
+
+
+    {% block extra_css %}{% endblock %}
+    {% render_block "css" %}
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+
+    {% block headersection %}
+    {% if page|banner or banner %}
+    <div class="with-header">
+      {% include "layout/menu.html" %}
+    </div>
+    {% else %}
+    <div class="without-header">
+      {% include "layout/menu.html" %}
+    </div>
+    {% endif %}
+
+    {% if page|banner %}
+    <section id="banner" style="background-image: url('{{ page|banner }}');">
+      <div>
+	<div class="container header-text">
+	  <a href="/"><h2>STRAFRECHT-ONLINE.ORG</h2></a>
+	</div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if banner %}
+    <section id="banner" style="background-image: url('{{ banner }}');">
+      <div>
+	<div class="container header-text">
+	  <a href="/"><h2>STRAFRECHT-ONLINE.ORG</h2></a>
+	</div>
+      </div>
+    </section>
+    {% endif %}
+    {% endblock %}
+
+    {% block breadcrumbmenu %}
+    <div style="display: flex; justify-content: center;">
+      {% if self.get_ancestors|length > 1 %}
+      {% if page.header %}
+      <div class="breadcrumb-new" style="max-width: 960px; width: 100%;">
+	{% else %}
+	<div class="breadcrumb-new" style="width: 100%; max-width: 960px; margin: 0px auto 0 auto !important;">
+	  {% endif %}
+	  Du bist hier:
+	  {% for page in self.get_ancestors %}
+	  {% if page.is_root == False %}
+	  <a style="color: #3d3d3d; text-decoration: none;" href="{% pageurl page %}">{{ page.title|truncatechars:25 }}</a> >
+	  {% endif %}
+	  {% endfor %}
+	  {{ self.title|truncatechars:25 }}
+	</div>
+	{% endif %}
+      </div>
+    </div>
+    {% endblock %}
+
+    <main role="main" class="container">
+      <div class="container-inner flex-column flex-md-row p-0 w-full">
+
+	<div class="content">
+	  {% block submenu %}{% endblock %}
+	  {% include 'includes/messages.html' %}
+	  {% block content %}{% endblock %}
+	</div>
+
+	{% if page.sidebar %}
+	<div class="sidebar d-inline-flex col-xs-12 col-sm-12 col-md-4 p-0">
+	  {% block sidebar %}{% endblock %}
+	</div>
+	{% endif %}
+
+      </div>
+    </main>
+
+    {% include "layout/footer.html" %}
+
+    {# Global javascript #}
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <script type="text/javascript" src="https://chat.strafrecht-online.org/js/compiled/chat_popup.js"></script>
+    <script>
+      $(document).ready(function () {
+	let chatHeadline = $("h3:contains('Online-Sprechstunde')").first();
+	if (chatHeadline.length > 0) {
+	  Mibew.ChatPopup.init({"id":"63e3d6606eb81347","url":"https:\/\/chat.strafrecht-online.org\/chat?locale=de&group=2","preferIFrame":true,"modSecurity":false,"width":640,"height":480,"resizable":true,"styleLoader":"https:\/\/chat.strafrecht-online.org\/chat\/style\/popup"});
+	  $.get("https://chat.strafrecht-online.org/opstatus", function(data) {
+	    let message = "<p>Momentan ist leider kein/e Mitarbeiter/in online. Sie können uns aber eine <a id='mibew-agent-button' href='https://chat.strafrecht-online.org/chat?locale=de&amp;group=2' target='_blank' onclick=\"Mibew.Objects.ChatPopups['63e3d6606eb81347'].open();return false;\">Nachricht hinterlassen</a>.</p>";
+	    if (data == "true")
+	      message = "<p>Ein/e Mitarbeiter/in ist aktuell online. Sie können die Sprechstunde <a id='mibew-agent-button' href='https://chat.strafrecht-online.org/chat?locale=de&amp;group=2' target='_blank' onclick=\"Mibew.Objects.ChatPopups['63e3d6606eb81347'].open();return false;\">hier starten</a>.</p>";
+	    $(message).insertAfter(chatHeadline);
+	  });
+	}
+      });
+    </script>
+    {% block extra_js %}
+    {% endblock %}
+    {% render_block "js" %}
+    {% include "includes/tracking.html" %}
+  </body>
+</html>

@@ -1,0 +1,36 @@
+#session-page {
+    margin-top: 0px;
+}
+#session-page .richtext {
+    /*line-height: 1.5rem !important;*/
+    display: flex;
+    flex-direction: column;
+}
+#session-page .session-material.richtext h2,
+#session-page .session-material.richtext h3 {
+    background: none;
+}
+#session-page .session-material.richtext h3 {
+    margin-top: 20px !important;
+    font-size: 1.1rem !important;
+}
+.block-semester_block {
+    display: flex;
+    flex-direction: column;
+}
+.session-group {
+    xdisplay: flex;
+    xflex-direction: column;
+}
+.session-cards {
+    display: flex;
+    flex-direction: column;
+}
+.session-card {
+    margin-bottom: 8px;
+}
+.session-material {
+    xdisplay: flex;
+    xflex-direction: column;
+    line-height: 1rem !important;
+}
