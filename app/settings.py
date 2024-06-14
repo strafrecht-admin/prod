@@ -237,20 +237,11 @@ if DEBUG:
     EMAIL_HOST = "localhost"
     EMAIL_PORT = "1025"
 else:
-    EMAIL_BACKEND = 'django_ses.SESBackend'
-    AWS_ACCESS_KEY_ID = 'AKIAU6GDWNDEJWBRSTFV'
-    AWS_SECRET_ACCESS_KEY = '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'
-    AWS_SES_REGION_NAME = 'eu-central-1'
-    AWS_SES_REGION_ENDPOINT = 'email.eu-central-1.amazonaws.com'
-
-    #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    #EMAIL_HOST = vars.vars["EMAIL"]["host"]
-    #EMAIL_PORT = vars.vars["EMAIL"]["port"]
-    #EMAIL_HOST_USER = vars.vars["EMAIL"]["login"]
-    #EMAIL_HOST_PASSWORD = vars.vars["EMAIL"]["password"]
-    #EMAIL_USE_TLS = True
-    #EMAIL_USE_SSL = True
-    #EMAIL_SSL_VERSION = 'TLSv1_2'
+    EMAIL_BACKEND = vars.vars["EMAIL"]["backend"]
+    AWS_ACCESS_KEY_ID = vars.vars["EMAIL"]["keyid"]
+    AWS_SECRET_ACCESS_KEY = vars.vars["EMAIL"]["key"]
+    AWS_SES_REGION_NAME = vars.vars["EMAIL"]["region"]
+    AWS_SES_REGION_ENDPOINT = vars.vars["EMAIL"]["endpoint"]
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
