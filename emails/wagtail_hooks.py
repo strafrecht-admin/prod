@@ -9,7 +9,7 @@ class ContactAdmin(ModelAdmin):
     model = Contact
     menu_label = 'Abonnenten'
     menu_icon = 'user'
-    #list_diplay = ('email')
+    search_fields = ['email']
 
 class LSHNewsletterAdmin(CampaignAdmin):
     campaign = LSHNewsletter
