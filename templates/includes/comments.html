@@ -15,11 +15,18 @@
   </ul>
   {% endif %}
 
-  <div class="comment">
-    <h4>Fragen und Anmerkungen:</h4>
-    <div class="well">
-      {% render_comment_form for object %}
+  {% if user.is_authenticated %}
+    <div class="comment">
+      <h5 class="text-center">Kommentar abgeben</h5>
+      <div class="well my-4">
+        {% render_comment_form for object %}
+      </div>
     </div>
-  </div>
+  {% else %}
+    <p class="text-center">
+      Nur angemeldete Benutzer können Kommentare abgeben. Bitte
+      <a href="https://strafrecht-online.org/profile/login/?next={{ object.get_absolute_url }}">anmelden</a>.
+    </p>
+  {% endif %}
 
 </div>
