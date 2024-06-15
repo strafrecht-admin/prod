@@ -278,7 +278,7 @@ msgstr ""
 
 #: templates/comments/preview.html:55
 msgid "Post your comment"
-msgstr ""
+msgstr "Kommentar posten"
 
 #: templates/news/choose.html:3 templates/news/index.html:4
 #: templates/news/index.html:11
