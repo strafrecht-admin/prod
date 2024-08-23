@@ -80,7 +80,7 @@ def free_text_mail(request, id):
         subject=subject,
         message=plain_message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[settings.DEFAULT_FROM_EMAIL],
+        recipient_list=[settings.EMAIL_JURCOACH],
         html_message=html_message,
         fail_silently=False,
     )

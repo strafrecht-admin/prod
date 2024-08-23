@@ -178,6 +178,9 @@ INSTALLED_APPS = [
 
     # django channels
     # 'channels',
+    
+    #django captcha
+    'captcha',
 ] + vars.vars.get("DEV_APPS", [])
 
 MIDDLEWARE = [
@@ -447,3 +450,7 @@ LOGGING = {
         },
     },
 }
+
+#django-recaptcha
+RECAPTCHA_PUBLIC_KEY = vars.vars["RECAPTCHA"]["PUBLIC_KEY"]
+RECAPTCHA_PRIVATE_KEY = vars.vars["RECAPTCHA"]["PRIVATE_KEY"]
