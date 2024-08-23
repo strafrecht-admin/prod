@@ -233,6 +233,7 @@ ADMINS = vars.vars["ADMINS"]
 SERVER_EMAIL = vars.vars["SERVER_EMAIL"]
 DEFAULT_FROM_EMAIL = vars.vars["DEFAULT_FROM_EMAIL"]
 BIRDSONG_FROM_EMAIL = vars.vars["BIRDSONG_FROM_EMAIL"]
+EMAIL_JURCOACH = vars.vars["EMAIL_JURCOACH"]
 
 # if DEBUG:
 #     # use mailcatcher for development
