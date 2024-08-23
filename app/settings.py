@@ -180,7 +180,7 @@ INSTALLED_APPS = [
     # 'channels',
     
     #django captcha
-    'captcha',
+    'django_recaptcha',
 ] + vars.vars.get("DEV_APPS", [])
 
 MIDDLEWARE = [
