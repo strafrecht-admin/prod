@@ -231,17 +231,17 @@ SERVER_EMAIL = vars.vars["SERVER_EMAIL"]
 DEFAULT_FROM_EMAIL = vars.vars["DEFAULT_FROM_EMAIL"]
 BIRDSONG_FROM_EMAIL = vars.vars["BIRDSONG_FROM_EMAIL"]
 
-if DEBUG:
-    # use mailcatcher for development
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = "localhost"
-    EMAIL_PORT = "1025"
-else:
-    EMAIL_BACKEND = vars.vars["EMAIL"]["backend"]
-    AWS_ACCESS_KEY_ID = vars.vars["EMAIL"]["keyid"]
-    AWS_SECRET_ACCESS_KEY = vars.vars["EMAIL"]["key"]
-    AWS_SES_REGION_NAME = vars.vars["EMAIL"]["region"]
-    AWS_SES_REGION_ENDPOINT = vars.vars["EMAIL"]["endpoint"]
+# if DEBUG:
+#     # use mailcatcher for development
+#     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#     EMAIL_HOST = "localhost"
+#     EMAIL_PORT = "1025"
+# else:
+EMAIL_BACKEND = vars.vars["EMAIL"]["backend"]
+AWS_ACCESS_KEY_ID = vars.vars["EMAIL"]["keyid"]
+AWS_SECRET_ACCESS_KEY = vars.vars["EMAIL"]["key"]
+AWS_SES_REGION_NAME = vars.vars["EMAIL"]["region"]
+AWS_SES_REGION_ENDPOINT = vars.vars["EMAIL"]["endpoint"]
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

@@ -5,6 +5,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.cache import cache_page
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 import hashlib
 import json
 
@@ -40,6 +42,11 @@ def show(request, case_id):
         "case": case,
     })
 
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import send_mail
+from django.http import HttpResponse, JsonResponse
+
 def free_text_mail(request, id):
     case = get_object_or_404(Casetraining, pk=id)
     data = json.loads(request.body)
@@ -48,36 +55,38 @@ def free_text_mail(request, id):
     answers = data.get('answers')
 
     # return if no answers given
-    if len(answers) == 0: return HttpResponse(201)
+    if len(answers) == 0:
+        return HttpResponse(201)
 
-    subject = "Korrektur-Anfrage: {title}".format(title=str(case))
-    text = """
-    Falltraining:
-    {site}/falltraining/show/{id}
+    context = {
+        'case': case,
+        'site': {
+            'root_url': settings.SITE_URL,
+        },
+        'contact': {'id': id},
+        'email': email,
+        'questions_and_answers': [
+            {'question': q.get('text'), 'answer': a}
+            for q, a in zip(config, answers)
+        ]
+    }
 
-    Absender: {email}
+    html_message = render_to_string('casetraining/korrektur-anfrage.html', context)
+    plain_message = strip_tags(html_message)
 
-    """.format(site=settings.SITE_URL,
-               id=id,
-               email=email)
-    for index, question in enumerate(config, start=0):
-        if len(answers) < index + 1: break
-
-        text += """
-        {question}
-
-        {answer}
-        """.format(question=question.get("text"),
-                   answer=answers[index])
+    subject = f"Korrektur-Anfrage: {str(case)}"
 
     send_mail(
         subject=subject,
-        message=text,
+        message=plain_message,
         from_email=settings.DEFAULT_FROM_EMAIL,
         recipient_list=[settings.DEFAULT_FROM_EMAIL],
+        html_message=html_message,
         fail_silently=False,
     )
+
     return HttpResponse(201)
+
 
 def wiki_categories(request):
     modified = Article.objects.order_by('-modified').first().modified
