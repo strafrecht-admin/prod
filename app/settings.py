@@ -14,6 +14,8 @@ from . import vars # container environment specific vars
 import os
 from django.contrib.messages import constants as messages
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -341,7 +343,8 @@ WIKI_CAN_DELETE = wiki_can_moderate
 
 COMMENTS_APP = 'django_comments_xtd'
 COMMENTS_XTD_MAX_THREAD_LEVEL = 5
-COMMENTS_XTD_CONFIRM_EMAIL = True
+COMMENTS_XTD_CONFIRM_EMAIL = False
+COMMENTS_XTD_FORM_CLASS = 'app.form.XtdCommentForm'
 
 CHAT_WS_SERVER_HOST = 'localhost'
 CHAT_WS_SERVER_PORT = 5002

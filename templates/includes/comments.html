@@ -2,31 +2,24 @@
 {% load comments_xtd %}
 
 <div class="comments">
-  <hr>
+    <hr>
 
-  {% get_comment_count for object as comment_count %}
-  <div class="">
-    {{ comment_count }} {{ comment_count|pluralize:"Kommentar,Kommentare"}}.
-  </div><br>
+    {% get_comment_count for object as comment_count %}
+    <div class="">
+        {{ comment_count }}
+        {{ comment_count|pluralize:"Kommentar,Kommentare"}}.
+    </div><br>
 
-  {% if comment_count %}
-  <ul class="media-list" style="padding: 0px">
-    {% render_xtdcomment_tree for object %}
-  </ul>
-  {% endif %}
+    {% if comment_count %}
+        <ul class="media-list" style="padding: 0px">
+            {% render_xtdcomment_tree for object %}
+        </ul>
+    {% endif %}
 
-  {% if user.is_authenticated %}
     <div class="comment">
-      <h5 class="text-center">Kommentar abgeben</h5>
-      <div class="well my-4">
-        {% render_comment_form for object %}
-      </div>
+        <h5 class="text-center">Kommentar abgeben</h5>
+        <div class="well my-4">
+            {% render_comment_form for object %}
+        </div>
     </div>
-  {% else %}
-    <p class="text-center">
-      Nur angemeldete Benutzer können Kommentare abgeben. Bitte
-      <a href="https://strafrecht-online.org/profile/login/?next={{ object.get_absolute_url }}">anmelden</a>.
-    </p>
-  {% endif %}
-
 </div>
