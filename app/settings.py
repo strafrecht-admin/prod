@@ -10,11 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-from . import vars # container environment specific vars
+from . import vars
 import os
 from django.contrib.messages import constants as messages
-
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +24,7 @@ PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = vars.vars["SITE_URL"]
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = envs = vars.vars["SECRET_KEY"]
+SECRET_KEY = vars.vars["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = vars.vars["DEBUG"]
@@ -37,11 +35,10 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LOCALE_PATHS = ( os.path.join(BASE_DIR, 'locale'), )
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 # Languages available
 LANGUAGES = (
     ('de', 'Deutsch'),
-    # ('en', 'English'),
 )
 
 ALLOWED_HOSTS = vars.vars["ALLOWED_HOSTS"]
@@ -57,49 +54,33 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 SHELL_PLUS = "ipython"
 
 INSTALLED_APPS = [
-    # Live Reload
-    #'livereload',
-
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    # Admin Interface
-    #'admin_interface',
     'colorfield',
     'django.contrib.admin',
     'pagedown',
     'django_filters',
-    #'debug_toolbar',
-
-    # Assets
     'pipeline',
     'pwa',
-
-    # Pages
     'app',
     'core',
     'quiz',
     'casetraining',
     'tandem_exams',
     'pages',
-    #'news',
     'emails',
     'profiles',
-    #'leaflet',
     'feedback',
     'dashboard',
     'flashcards',
-
-    # Wagtail
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.table_block',
-    # not available in wagtail 2.13
-    # 'wagtail.contrib.typed_table_block',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -115,11 +96,8 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
     'wagtailautocomplete',
     'wagtailmarkdown',
-
     'modelcluster',
     'taggit',
-
-    # Wiki
     'django.contrib.sites.apps.SitesConfig',
     'django.contrib.humanize.apps.HumanizeConfig',
     'django_nyt.apps.DjangoNytConfig',
@@ -127,61 +105,26 @@ INSTALLED_APPS = [
     'sekizai',
     'sorl.thumbnail',
     'wiki.apps.WikiConfig',
-    # 'wiki.plugins.attachments.apps.AttachmentsConfig',
-    # not used
-    # 'wiki.plugins.notifications.apps.NotificationsConfig',
-    # 'wiki.plugins.images.apps.ImagesConfig',
-    # 'wiki.plugins.macros.apps.MacrosConfig',
-
-    # this is buggy
-    # 'wiki.plugins.editsection.apps.EditSectionConfig',
     'wiki.plugins.help.apps.HelpConfig',
     'wiki.plugins.links.apps.LinksConfig',
     'wiki.plugins.globalhistory.apps.GlobalHistoryConfig',
     'editors',
     'markdownify',
-
-    # Chatter
-    #'django_chatter',
-
-    # User Profile
     'avatar',
-
-    # Comments
     'django_comments_xtd',
     'django_comments',
     'comments_wagtail_xtd',
-
-    # Wagtail News
     'wagtailnews',
-
-    # Wagtail Menus
     'wagtailmenus',
-
-    # Wagtail Newsletter
     'mjml',
     'birdsong',
-
-    # Link Checker
-    #'wagtaillinkchecker',
-
-    # Wagtail Polls
     'wagtailpolls',
     'wagtail.contrib.modeladmin',
     'wagtailstreamforms',
     'treemodeladmin',
-
-    # DRF
     'rest_framework',
     'rest_framework.authtoken',
-
-    # cors-headers
     'corsheaders',
-
-    # django channels
-    # 'channels',
-    
-    #django captcha
     'django_recaptcha',
 ] + vars.vars.get("DEV_APPS", [])
 
@@ -192,16 +135,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-    #'livereload.middleware.LiveReloadScript',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
-    #'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -228,7 +166,6 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'wsgi.application'
 ASGI_APPLICATION = 'app.routing.application'
 
 ADMINS = vars.vars["ADMINS"]
@@ -237,64 +174,48 @@ DEFAULT_FROM_EMAIL = vars.vars["DEFAULT_FROM_EMAIL"]
 BIRDSONG_FROM_EMAIL = vars.vars["BIRDSONG_FROM_EMAIL"]
 EMAIL_JURCOACH = vars.vars["EMAIL_JURCOACH"]
 
-# if DEBUG:
-#     # use mailcatcher for development
-#     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#     EMAIL_HOST = "localhost"
-#     EMAIL_PORT = "1025"
-# else:
 EMAIL_BACKEND = vars.vars["EMAIL"]["backend"]
 AWS_ACCESS_KEY_ID = vars.vars["EMAIL"]["keyid"]
 AWS_SECRET_ACCESS_KEY = vars.vars["EMAIL"]["key"]
 AWS_SES_REGION_NAME = vars.vars["EMAIL"]["region"]
 AWS_SES_REGION_ENDPOINT = vars.vars["EMAIL"]["endpoint"]
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = vars.vars["DATABASES"]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-       'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-       'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-       'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-       'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 CHANNEL_LAYERS = {
-  'default': {
-      'BACKEND': 'channels_redis.core.RedisChannelLayer',
-      'CONFIG': {
-        'hosts': [('127.0.0.1', 6379)],
-      },
-  },
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
 }
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = '/assets/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 STATICFILES_STORAGE = 'pipeline.storage.PipelineManifestStorage'
-
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
 )
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/build')
 ]
@@ -307,21 +228,19 @@ MEDIA_URL = '/media/'
 SITE_ID = 1
 
 PIPELINE = {
-    'PIPELINE_ENABLED': not vars.vars["DEBUG"], #not DEBUG
+    'PIPELINE_ENABLED': not vars.vars["DEBUG"],
     'COMPILERS': (
         'pipeline.compilers.sass.SASSCompiler',
         'pipeline.compilers.es6.ES6Compiler'
     ),
     'CSS_COMPRESSOR': 'pipeline.compressors.yuglify.YuglifyCompressor',
     'JS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
-    'BABEL_ARGUMENTS': '', #'--presets es2016',
-    'STYLESHEETS': {
-    },
-    'JAVASCRIPT': {
-    }
+    'BABEL_ARGUMENTS': '',
+    'STYLESHEETS': {},
+    'JAVASCRIPT': {}
 }
 
-X_FRAME_OPTIONS='SAMEORIGIN'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 LOGIN_URL = "/profile/login/"
 LOGOUT_URL = "/profile/logout/"
@@ -334,7 +253,6 @@ WIKI_ANONYMOUS_CREATE = True
 WIKI_ANONYMOUS_WRITE = True
 WIKI_EDITOR = 'editors.modern.Modern'
 WIKI_CHECK_SLUG_URL_AVAILABLE = False
-# we hopefully don't get over this
 WIKI_SHOW_MAX_CHILDREN = 500
 
 from .wiki_patch import wiki_can_moderate
@@ -350,36 +268,12 @@ CHAT_WS_SERVER_HOST = 'localhost'
 CHAT_WS_SERVER_PORT = 5002
 CHAT_WS_SERVER_PROTOCOL = 'ws'
 
-#import os
-#if os.name == 'nt':
-#    import platform
-#    OSGEO4W = r"C:\OSGeo4W"
-#    if '64' in platform.architecture()[0]:
-#        OSGEO4W += "64"
-#    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
-#    os.environ['OSGEO4W_ROOT'] = OSGEO4W
-#    os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
-#    os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
-#    os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
-#else:
-#    GDAL_LIBRARY_PATH = '/usr/include/gdal'
-
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:8080",
-#     "http://127.0.0.1:8000"
-# ]
-
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        #'rest_framework.permissions.IsAuthenticated',
-    ),
+    'DEFAULT_PERMISSION_CLASSES': (),
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
     ],
 }
 
@@ -417,11 +311,6 @@ AVATAR_GRAVATAR_DEFAULT = 'identicon'
 AVATAR_EXPOSE_USERNAMES = False
 AVATAR_MAX_AVATARS_PER_USER = '1'
 
-# CSP_SCRIPT_SRC = ("'self'", "'unsafe-eval'", "'unsafe-inline'",)
-COMMENTS_APP = 'django_comments_xtd'
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-COMMENTS_XTD_MAX_THREAD_LEVEL = 5
-
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
     messages.INFO: 'alert-info',
@@ -429,7 +318,9 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
 CSRF_TRUSTED_ORIGINS = ['https://strafrecht-online.org/']
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -455,6 +346,5 @@ LOGGING = {
     },
 }
 
-#django-recaptcha
 RECAPTCHA_PUBLIC_KEY = vars.vars["RECAPTCHA"]["PUBLIC_KEY"]
 RECAPTCHA_PRIVATE_KEY = vars.vars["RECAPTCHA"]["PRIVATE_KEY"]
